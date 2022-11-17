@@ -4,6 +4,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import sys
+from abc import abstractmethod
 
 from maya import cmds
 from PySide2.QtWidgets import *
@@ -17,6 +18,7 @@ REFERENCE_FILE = "Reference File"
 TEXTURE = "Texture"
 MESH = "Mesh"
 CHARACTER = "Character"
+ANIMATION = "Animation"
 CHECKLIST = {
     SCENE_SETTING : [
         {"単位がCM" : cmds.polyCube},
@@ -52,6 +54,13 @@ CHECKLIST = {
         {"スキンクラスターの設定" : cmds.polyPyramid},
         {"セグメントスケール補正が無効" : cmds.polyPyramid},
     ],
+
+    ANIMATION : [
+        {"ロックされている頂点" : cmds.polyTorus},
+        {"フリーズされていないトランスフォーム" : cmds.polyTorus},
+        {"ヒストリが残っているノード" : cmds.polyTorus},
+        {"コンストレイントが使われているジョイント" : cmds.polyTorus},
+    ],
 }
 SHOW_ORDER = [
     SCENE_SETTING,
@@ -59,7 +68,17 @@ SHOW_ORDER = [
     TEXTURE,
     MESH,
     CHARACTER,
+    ANIMATION,
 ]
+
+# class Tester():
+#     def __init__(self, name):
+#         self.name = name
+
+#     @abstractmethod
+#     def exec(self):
+#         """execute"""
+#         pass
 
 class MyWindow(QMainWindow):
     def __init__(self, parent=None, *args, **kwargs):
