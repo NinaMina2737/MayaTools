@@ -22,7 +22,7 @@ class CreatePolygonUI(MayaQWidgetBaseMixin, QtWidgets.QWidget):
     x_value = 1
     y_value = 1
     z_value = 1
-    def __init__(self, *args, **kwargs):        
+    def __init__(self, *args, **kwargs):
         super(CreatePolygonUI, self).__init__(*args, **kwargs)
 
         # すでにUIが出来てる場合は削除する #
@@ -36,10 +36,10 @@ class CreatePolygonUI(MayaQWidgetBaseMixin, QtWidgets.QWidget):
         # ------------------------ #
 
         # ウインドウのタイトルを指定する
-        self.setWindowTitle("relativeScaleByPivot")
+        self.setWindowTitle("componentRelativeScale")
 
         # uiファイルからウィジェットを作成
-        ui_filename = this_dir("relativeScaleByPivot_ui.ui")  # uiファイル名を指定する
+        ui_filename = this_dir("componentRelativeScale_ui.ui")  # uiファイル名を指定する
         self.ui = self.initUI(ui_filename)
 
         # ウインドウのサイズに追従するようにレイアウトを作成
@@ -54,24 +54,24 @@ class CreatePolygonUI(MayaQWidgetBaseMixin, QtWidgets.QWidget):
         self.ui.scaleButton.clicked.connect(self.scaleFromPivot)
 
     def initUI(self, ui_filename):
-        ui_loader = QtUiTools.QUiLoader()        
-        ui_file = QtCore.QFile(ui_filename)        
-        ui_file.open(QtCore.QFile.ReadOnly)        
-        ui = ui_loader.load(ui_file, parentWidget=self)        
+        ui_loader = QtUiTools.QUiLoader()
+        ui_file = QtCore.QFile(ui_filename)
+        ui_file.open(QtCore.QFile.ReadOnly)
+        ui = ui_loader.load(ui_file, parentWidget=self)
         ui_file.close()
         return ui
-    
+
     def reloadValue(self):
         self.x_value = float(self.ui.doubleSpinBox_X.text())
         self.y_value = float(self.ui.doubleSpinBox_Y.text())
         self.z_value = float(self.ui.doubleSpinBox_Z.text())
-    
+
     def reloadIsCalcCenterByBox(self):
         if self.ui.isCalcCenterByBox.isChecked():
             self.isCalcCenterByBox = True
         else:
             self.isCalcCenterByBox = False
-    
+
     def calcCenter(self,posList):
         ans = [0,0,0]
         for pos in posList:
@@ -82,7 +82,7 @@ class CreatePolygonUI(MayaQWidgetBaseMixin, QtWidgets.QWidget):
         ans[1] /= len(posList)
         ans[2] /= len(posList)
         return ans
-    
+
     def calcCenterByBox(self,posList):
         _min = [posList[0][0],posList[0][1],posList[0][2]]
         _max = [posList[0][0],posList[0][1],posList[0][2]]
@@ -130,9 +130,9 @@ class CreatePolygonUI(MayaQWidgetBaseMixin, QtWidgets.QWidget):
             result = self.calcCenterByBox(posList)
         else:
             result = self.calcCenter(posList)
-        
+
         print(result)
-        
+
         return result
 
     def scaleFromPivot(self):
