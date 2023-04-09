@@ -10,7 +10,7 @@ from maya.app.general import mayaMixin
 from PySide2.QtWidgets import *
 from PySide2 import QtCore, QtGui
 
-from animationBaker import bake
+from . import bake
 
 WINDOW_WIDTH = 400
 WINDOW_HEIGHT = 270
